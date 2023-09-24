@@ -30,6 +30,15 @@
             </Grid>
 
             <Grid Height="80">
+                <Button x:Name="AssetsButton"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="Assets"
+                        Style="{StaticResource MainTextButton}"
+                        Click="AssetsButton_Click"/>
+            </Grid>
+
+            <Grid Height="80">
                 <Button x:Name="Exit"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"

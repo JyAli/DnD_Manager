@@ -31,7 +31,7 @@ namespace DnD_Manager.Windows
             string entranceText = Scene.EntranceSoundPath is not null ? Path.GetFileNameWithoutExtension(Scene.EntranceSoundPath) : string.Empty;
             string loopText = Scene.LoopSoundPath is not null ? Path.GetFileNameWithoutExtension(Scene.LoopSoundPath) : string.Empty;
             EntranceTextBlock.Text = $"Entrance Sound: {entranceText}";
-            LoopTextBlock.Text = $"Loop Sounde: {loopText}";
+            LoopTextBlock.Text = $"Loop Sound: {loopText}";
             UpdateSoundsListBox();
         }
 

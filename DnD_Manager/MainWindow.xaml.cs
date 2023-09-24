@@ -53,10 +53,19 @@ namespace DnD_Manager
             MainPagesFrame.Content = new ScenesPage();
         }
 
+        private void AssetsButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainPagesFrame.Content = new AssetsPage();
+        }
+
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
+        public void ClearMainPagesFrame()
+        {
+            MainPagesFrame.Content = null;
+        }
     }
 }

@@ -17,6 +17,7 @@
             <ColumnDefinition Width="500"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        
         <Image Grid.ColumnSpan="2"
                HorizontalAlignment="Center"
                VerticalAlignment="Center"
@@ -31,10 +32,34 @@
                     BorderBrush="#fff1cc"
                     BorderThickness="0,0,1,0"/>
             <Grid>
-                <TextBlock Text="Scenes"/>
+                <Button x:Name="BackButton"
+                        Style="{StaticResource IconButtonStyle}"
+                        Foreground="#fff1cc"
+                        Width="35"
+                        Height="35"
+                        Margin="20,12"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left"
+                        Click="BackButton_Click">
+                    <Image>
+                        <Image.Effect>
+                            <DropShadowEffect BlurRadius="10"/>
+                        </Image.Effect>
+                        <Image.Source>
+                            <DrawingImage>
+                                <DrawingImage.Drawing>
+                                    <DrawingGroup ClipGeometry="M0,0 V11 H6 V0 H0 Z">
+                                        <GeometryDrawing Brush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" Geometry="F0 M6,11z M0,0z M5.49128,1.55011C5.66878,1.33857 5.64119,1.0232 5.42965,0.845695 5.21811,0.668194 4.90273,0.695786 4.72523,0.907323L0.874607,5.49632C0.839821,5.53611 0.812279,5.58037 0.792144,5.62725 0.733859,5.76295 0.737638,5.92056 0.807425,6.05499 0.825196,6.08934 0.847155,6.12195 0.873233,6.15204L4.72521,10.7426C4.90271,10.9542 5.21809,10.9818 5.42962,10.8043 5.64116,10.6268 5.66875,10.3114 5.49125,10.0999L1.90422,5.825 5.49128,1.55011z" />
+                                    </DrawingGroup>
+                                </DrawingImage.Drawing>
+                            </DrawingImage>
+                        </Image.Source>
+                    </Image>
+                </Button>
+                
                 <ListBox x:Name="ScenesListBox"
                          Background="#88000000"
-                         Margin="30,30,30,70"
+                         Margin="30,60,30,70"
                          Padding="0,10"
                          BorderBrush="#fff1cc"
                          SelectionChanged="ScenesListBox_SelectionChanged">
@@ -64,7 +89,7 @@
                         <DataTemplate>
                             <Grid Name="Container" Background="Transparent">
                                 <StackPanel Orientation="Horizontal">
-                                    <Image Height="70" Margin="10">
+                                    <Image Width="125" Margin="10">
                                         <Image.Source>
                                             <BitmapImage UriSource="{Binding ImagePath}"/>
                                         </Image.Source>

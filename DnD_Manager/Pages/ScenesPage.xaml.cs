@@ -57,5 +57,10 @@ namespace DnD_Manager.Pages
             Scene clickedScene = (Scene)soundsButton.CommandParameter;
             new SoundsWindow(clickedScene).Show();
         }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).ClearMainPagesFrame();
+        }
     }
 }

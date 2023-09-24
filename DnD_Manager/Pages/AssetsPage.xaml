@@ -1,0 +1,355 @@
+﻿<Page x:Class="DnD_Manager.Pages.AssetsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DnD_Manager.Pages"
+      xmlns:converters="clr-namespace:DnD_Manager.Classes.Converters"
+      mc:Ignorable="d" 
+      d:DesignHeight="1080" d:DesignWidth="1920"
+      Title="AssetsPage">
+    <Page.Resources>
+        <converters:PathToFileNameConverter x:Key="PathToFileNameConverter"/>
+    </Page.Resources>
+
+    <Grid>
+        <Image Grid.ColumnSpan="2"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               Stretch="UniformToFill"
+               Source="{StaticResource MainBackgroundImage}"
+               RenderOptions.BitmapScalingMode="HighQuality"
+               RenderOptions.EdgeMode="Aliased"/>
+        <Canvas Background="#88000000" Grid.ColumnSpan="2"/>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="500"/>
+                <ColumnDefinition Width="500"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <Button x:Name="BackButton"
+                        Style="{StaticResource IconButtonStyle}"
+                        Foreground="#fff1cc"
+                        Width="35"
+                        Height="35"
+                        Margin="20,12"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left"
+                        Click="BackButton_Click">
+                    <Image>
+                        <Image.Effect>
+                            <DropShadowEffect BlurRadius="10"/>
+                        </Image.Effect>
+                        <Image.Source>
+                            <DrawingImage>
+                                <DrawingImage.Drawing>
+                                    <DrawingGroup ClipGeometry="M0,0 V11 H6 V0 H0 Z">
+                                        <GeometryDrawing Brush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" Geometry="F0 M6,11z M0,0z M5.49128,1.55011C5.66878,1.33857 5.64119,1.0232 5.42965,0.845695 5.21811,0.668194 4.90273,0.695786 4.72523,0.907323L0.874607,5.49632C0.839821,5.53611 0.812279,5.58037 0.792144,5.62725 0.733859,5.76295 0.737638,5.92056 0.807425,6.05499 0.825196,6.08934 0.847155,6.12195 0.873233,6.15204L4.72521,10.7426C4.90271,10.9542 5.21809,10.9818 5.42962,10.8043 5.64116,10.6268 5.66875,10.3114 5.49125,10.0999L1.90422,5.825 5.49128,1.55011z" />
+                                    </DrawingGroup>
+                                </DrawingImage.Drawing>
+                            </DrawingImage>
+                        </Image.Source>
+                    </Image>
+                </Button>
+
+                <TextBlock Text="Music" Style="{StaticResource DefaultTextBlock}" Margin="30,50,0,0" FontSize="30"/>
+                <ListBox x:Name="MusicListBox"
+                     Background="#88000000"
+                     Margin="30,90,30,120"
+                     Padding="0,10"
+                     BorderBrush="#fff1cc">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Margin" Value="10,0"/>
+                            <Setter Property="Padding" Value="0"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <EventSetter Event="MouseDoubleClick" Handler="ListBoxItem_MouseDoubleClick" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                        <ContentPresenter/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Name="Container" Background="Transparent">
+                                <TextBlock Name="PathTextBlock"
+                                           HorizontalAlignment="Left"
+                                           VerticalAlignment="Center"
+                                           Margin="10"
+                                           Text="{Binding Converter={StaticResource PathToFileNameConverter}}"
+                                           Style="{StaticResource DefaultTextBlock}"
+                                           FontSize="22"
+                                           TextTrimming="CharacterEllipsis"
+                                           Width="240"/>
+                            </Grid>
+
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource
+                                     Mode=FindAncestor,
+                                     AncestorType={x:Type ListBoxItem}},
+                                     Path=IsSelected}"
+                                     Value="True">
+
+                                    <Setter TargetName="Container"
+                                        Property="Background"
+                                        Value="#fff1cc"/>
+
+                                    <Setter TargetName="PathTextBlock"
+                                        Property="Foreground"
+                                        Value="#170d00"/>
+
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+
+                </ListBox>
+
+                <Grid Margin="30,80" VerticalAlignment="Bottom">
+                    <Grid HorizontalAlignment="Left">
+                        <Button x:Name="PlayButton"
+                            Style="{StaticResource IconButtonStyle}"
+                            Foreground="#fff1cc"
+                            Click="PlayButton_Click">
+                            <Image Height="25">
+                                <Image.Source>
+                                    <DrawingImage>
+                                        <DrawingImage.Drawing>
+                                            <DrawingGroup ClipGeometry="M0,0 V29 H26 V0 H0 Z">
+                                                <GeometryDrawing Brush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" Geometry="F1 M26,29z M0,0z M24,11.0359C26.6667,12.5755,26.6667,16.4245,24,17.9641L6.75,27.9234C4.08334,29.463,0.75,27.5385,0.75,24.4593L0.75,4.54071C0.75,1.46151,4.08333,-0.462994,6.75,1.07661L24,11.0359z" />
+                                            </DrawingGroup>
+                                        </DrawingImage.Drawing>
+                                    </DrawingImage>
+                                </Image.Source>
+                            </Image>
+                        </Button>
+
+                        <Button x:Name="PauseButton"
+                                Style="{StaticResource IconButtonStyle}"
+                                Foreground="#fff1cc"
+                                Click="PauseButton_Click"
+                                Visibility="Hidden">
+                            <Image Height="25">
+                                <Image.Source>
+                                    <DrawingImage>
+                                        <DrawingImage.Drawing>
+                                            <DrawingGroup ClipGeometry="M0,0 V28 H24 V0 H0 Z">
+                                                <GeometryDrawing Brush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" Geometry="F1 M24,28z M0,0z M0,3C0,1.34315,1.34315,0,3,0L6,0C7.65685,0,9,1.34315,9,3L9,25C9,26.6569,7.65685,28,6,28L3,28C1.34315,28,0,26.6569,0,25L0,3z" />
+                                                <GeometryDrawing Brush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" Geometry="F1 M24,28z M0,0z M15,3C15,1.34315,16.3431,0,18,0L21,0C22.6569,0,24,1.34315,24,3L24,25C24,26.6569,22.6569,28,21,28L18,28C16.3431,28,15,26.6569,15,25L15,3z" />
+                                            </DrawingGroup>
+                                        </DrawingImage.Drawing>
+                                    </DrawingImage>
+                                </Image.Source>
+                            </Image>
+                        </Button>
+                    </Grid>
+
+                    <Slider x:Name="ProgressSlider"
+                            Style="{StaticResource Horizontal_Slider}"
+                            Value="0"
+                            Maximum="100"
+                            Width="368"
+                            VerticalAlignment="Center"
+                            Margin="0,0,36,0"
+                            IsMoveToPointEnabled="True"
+                            Thumb.DragStarted="ControlElement_DragStarted"
+                            Thumb.DragCompleted="ControlElement_DragCompleted" HorizontalAlignment="Right"/>
+
+                    <Button x:Name="StopButton"
+                            Style="{StaticResource IconButtonStyle}"
+                            HorizontalAlignment="Right"
+                            Foreground="#fff1cc"
+                            Click="StopButton_Click">
+                        <Image Height="20">
+                            <Image.Source>
+                                <DrawingImage>
+                                    <DrawingImage.Drawing>
+                                        <DrawingGroup ClipGeometry="M0,0 V26 H26 V0 H0 Z">
+                                            <GeometryDrawing Brush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}">
+                                                <GeometryDrawing.Geometry>
+                                                    <RectangleGeometry RadiusX="5" RadiusY="5" Rect="0.39,0.2762,25,25" />
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+                                        </DrawingGroup>
+                                    </DrawingImage.Drawing>
+                                </DrawingImage>
+                            </Image.Source>
+                        </Image>
+                    </Button>
+                </Grid>
+
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom"
+                            Margin="30">
+                    <Button x:Name="MusicFolderButton" 
+                            Content="Open Music Folder"
+                            FontSize="18"
+                            Height="40"
+                            Width="150"
+                            Style="{StaticResource PrimaryButton}"
+                            Click="MusicFolderButton_Click"/>
+
+                    <Button x:Name="MusicRefreshButton"
+                            Background="Transparent"
+                            Foreground="#fff1cc"
+                            BorderThickness="0"
+                            Height="30"
+                            Width="30"
+                            Margin="15,0"
+                            Style="{StaticResource IconButtonStyle}"
+                            Click="MusicRefreshButton_Click">
+                        <Image Height="20">
+                            <Image.Source>
+                                <DrawingImage>
+                                    <DrawingImage.Drawing>
+                                        <DrawingGroup ClipGeometry="M0,0 V489.645 H489.645 V0 H0 Z">
+                                            <DrawingGroup Opacity="1">
+                                                <GeometryDrawing Brush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" Geometry="F1 M489.645,489.645z M0,0z M460.656,132.911C401.956,10.811 248.456,-33.589 128.856,28.811 119.456,34.011 115.356,45.411 120.556,55.811 125.756,65.211 137.156,69.311 147.556,64.111 247.456,12.111 374.956,49.211 424.256,150.411 489.656,284.711 405.256,387.111 336.856,425.011 243.756,476.711 125.656,442.411 69.256,354.311L138.556,368.811C148.956,370.911 160.356,364.611 162.456,353.211 164.556,342.811 158.256,331.411 146.856,329.311L24.056,304.311C3.456,302.311,-0.944000000000003,320.911,0.155999999999999,327.211L15.756,451.011C16.756,461.411 25.156,468.711 35.556,468.711 48.356,468.711 56.356,456.211 55.356,444.811L49.356,394.311C106.756,465.111 219.656,525.511 356.756,462.511 414.856,432.511 548.256,314.811 460.656,132.911z" />
+                                            </DrawingGroup>
+                                        </DrawingGroup>
+                                    </DrawingImage.Drawing>
+                                </DrawingImage>
+                            </Image.Source>
+                        </Image>
+                    </Button>
+                </StackPanel>
+
+            </Grid>
+
+            <Grid Grid.Column="1">
+                <TextBlock Text="Characters" Style="{StaticResource DefaultTextBlock}" Margin="30,50,0,0" FontSize="30"/>
+                <ListBox x:Name="CharactersListBox"
+                         Background="#88000000"
+                         Margin="30,90,30,120"
+                         Padding="0,10"
+                         BorderBrush="#fff1cc">
+
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Margin" Value="10,0"/>
+                            <Setter Property="Padding" Value="0"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                        <ContentPresenter/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Name="Container" Background="Transparent">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="50" Margin="10">
+                                        <Image.Source>
+                                            <BitmapImage UriSource="{Binding}"/>
+                                        </Image.Source>
+                                    </Image>
+                                    <TextBlock Name="CharacterNameTextBlock"
+                                               Text="{Binding Converter={StaticResource PathToFileNameConverter}, NotifyOnSourceUpdated=True}"
+                                               Style="{StaticResource DefaultTextBlock}"
+                                               FontSize="22"
+                                               VerticalAlignment="Center"
+                                               TextTrimming="CharacterEllipsis"
+                                               Width="300"/>
+                                </StackPanel>
+
+
+                            </Grid>
+
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource
+                                             Mode=FindAncestor,
+                                             AncestorType={x:Type ListBoxItem}},
+                                             Path=IsSelected}"
+                                             Value="True">
+
+                                    <Setter TargetName="Container"
+                                            Property="Background"
+                                            Value="#fff1cc"/>
+
+                                    <Setter TargetName="CharacterNameTextBlock"
+                                            Property="Foreground"
+                                            Value="#170d00"/>
+
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+
+                </ListBox>
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="30">
+                    <Button x:Name="CharactersFolderButton"
+                            HorizontalAlignment="Left"
+                            Content="Open Characters Folder"
+                            FontSize="18"
+                            Height="40"
+                            Width="150"
+                            Style="{StaticResource PrimaryButton}"
+                            Click="CharactersFolderButton_Click"/>
+
+                    <Button x:Name="RefreshCharactersButton"
+                            Background="Transparent"
+                            Foreground="#fff1cc"
+                            BorderThickness="0"
+                            Height="30"
+                            Width="30"
+                            Margin="5,0"
+                            Style="{StaticResource IconButtonStyle}"
+                            Click="RefreshCharactersButton_Click">
+                        <Image Height="20">
+                            <Image.Source>
+                                <DrawingImage>
+                                    <DrawingImage.Drawing>
+                                        <DrawingGroup ClipGeometry="M0,0 V489.645 H489.645 V0 H0 Z">
+                                            <DrawingGroup Opacity="1">
+                                                <GeometryDrawing Brush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" Geometry="F1 M489.645,489.645z M0,0z M460.656,132.911C401.956,10.811 248.456,-33.589 128.856,28.811 119.456,34.011 115.356,45.411 120.556,55.811 125.756,65.211 137.156,69.311 147.556,64.111 247.456,12.111 374.956,49.211 424.256,150.411 489.656,284.711 405.256,387.111 336.856,425.011 243.756,476.711 125.656,442.411 69.256,354.311L138.556,368.811C148.956,370.911 160.356,364.611 162.456,353.211 164.556,342.811 158.256,331.411 146.856,329.311L24.056,304.311C3.456,302.311,-0.944000000000003,320.911,0.155999999999999,327.211L15.756,451.011C16.756,461.411 25.156,468.711 35.556,468.711 48.356,468.711 56.356,456.211 55.356,444.811L49.356,394.311C106.756,465.111 219.656,525.511 356.756,462.511 414.856,432.511 548.256,314.811 460.656,132.911z" />
+                                            </DrawingGroup>
+                                        </DrawingGroup>
+                                    </DrawingImage.Drawing>
+                                </DrawingImage>
+                            </Image.Source>
+                        </Image>
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <Image Grid.Column="2"
+                   Source="{Binding ElementName=CharactersListBox, Path=SelectedItem, FallbackValue=Null}"
+                   Margin="20"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Stretch="Uniform"
+                   RenderOptions.BitmapScalingMode="HighQuality"
+                   RenderOptions.EdgeMode="Aliased"/>
+        </Grid>
+    </Grid>
+</Page>
