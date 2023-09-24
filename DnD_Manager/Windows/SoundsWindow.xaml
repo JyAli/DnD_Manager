@@ -1,0 +1,218 @@
+﻿<Window x:Class="DnD_Manager.Windows.SoundsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DnD_Manager.Windows"
+        xmlns:converters="clr-namespace:DnD_Manager.Classes.Converters"
+        mc:Ignorable="d"
+        Title="SoundsWindow" Height="600" Width="400"
+        Background="#170d00"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanMinimize">
+    <Window.Resources>
+        <converters:PathToFileNameConverter x:Key="PathToFileNameConverter"/>
+    </Window.Resources>
+    
+    <Grid>
+        <StackPanel>
+            <TextBlock x:Name="EntranceTextBlock"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Margin="30,10,0,0"
+                       Text="Entrance Sound: "
+                       TextTrimming="CharacterEllipsis"
+                       Width="240"
+                       Style="{StaticResource DefaultTextBlock}"
+                       FontSize="20"/>
+            
+            <TextBlock x:Name="LoopTextBlock"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Margin="30,0,0,0"
+                       Text="Loop Sound: "
+                       TextTrimming="CharacterEllipsis"
+                       Width="240"
+                       Style="{StaticResource DefaultTextBlock}"
+                       FontSize="20"/>
+        </StackPanel>
+        <Button x:Name="ClearButton"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Margin="30,20,30,15"
+                Content="Clear"
+                FontSize="18"
+                Height="40"
+                Width="70"
+                Style="{StaticResource PrimaryButton}"
+                Click="ClearButton_Click"/>
+        
+        <ListBox x:Name="SoundsListBox"
+                         Background="#88000000"
+                         Margin="30,70,30,70"
+                         Padding="0,10"
+                         BorderBrush="#fff1cc">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Margin" Value="10,0"/>
+                    <Setter Property="Padding" Value="0"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                <ContentPresenter/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Name="Container" Background="Transparent">
+                        <TextBlock Name="PathTextBlock"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   Margin="10"
+                                   Text="{Binding Converter={StaticResource PathToFileNameConverter}}"
+                                   Style="{StaticResource DefaultTextBlock}"
+                                   FontSize="22"
+                                   TextTrimming="CharacterEllipsis"
+                                   Width="240"/>
+
+                        <Button x:Name="PlaySoundButton"
+                                Style="{StaticResource IconButtonStyle}"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Foreground="#fff1cc"
+                                CommandParameter="{Binding}"
+                                Click="PlaySoundButton_Click"
+                                Margin="15">
+                            <Image Width="20">
+                                <Image.Source>
+                                    <DrawingImage>
+                                        <DrawingImage.Drawing>
+                                            <DrawingGroup ClipGeometry="M0,0 V75 H75 V0 H0 Z">
+                                                <DrawingGroup Opacity="1">
+                                                    <GeometryDrawing Brush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" Geometry="F1 M75,75z M0,0z M39.389,13.769L39.389,13.769 22.235,28.606 6,28.606 6,47.699 21.989,47.699 39.389,62.75 39.389,13.769z">
+                                                        <GeometryDrawing.Pen>
+                                                            <Pen Brush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" Thickness="5" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+                                                        </GeometryDrawing.Pen>
+                                                    </GeometryDrawing>
+                                                    <GeometryDrawing Geometry="F1 M75,75z M0,0z M48.128,49.03C50.057,45.934 51.19,42.291 51.19,38.377 51.19,34.399 50.026,30.703 48.043,27.577">
+                                                        <GeometryDrawing.Pen>
+                                                            <Pen Brush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" Thickness="5" StartLineCap="Round" EndLineCap="Round" LineJoin="Miter" />
+                                                        </GeometryDrawing.Pen>
+                                                    </GeometryDrawing>
+                                                    <GeometryDrawing Geometry="F1 M75,75z M0,0z M55.082,20.537C58.777,25.523 60.966,31.694 60.966,38.377 60.966,44.998 58.815,51.115 55.178,56.076">
+                                                        <GeometryDrawing.Pen>
+                                                            <Pen Brush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" Thickness="5" StartLineCap="Round" EndLineCap="Round" LineJoin="Miter" />
+                                                        </GeometryDrawing.Pen>
+                                                    </GeometryDrawing>
+                                                    <GeometryDrawing Geometry="F1 M75,75z M0,0z M61.71,62.611C66.977,55.945 70.128,47.531 70.128,38.378 70.128,29.161 66.936,20.696 61.609,14.01">
+                                                        <GeometryDrawing.Pen>
+                                                            <Pen Brush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" Thickness="5" StartLineCap="Round" EndLineCap="Round" LineJoin="Miter" />
+                                                        </GeometryDrawing.Pen>
+                                                    </GeometryDrawing>
+                                                </DrawingGroup>
+                                            </DrawingGroup>
+                                        </DrawingImage.Drawing>
+                                    </DrawingImage>
+                                </Image.Source>
+                            </Image>
+                        </Button>
+                    </Grid>
+
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource
+                                     Mode=FindAncestor,
+                                     AncestorType={x:Type ListBoxItem}},
+                                     Path=IsSelected}"
+                                     Value="True">
+
+                            <Setter TargetName="Container"
+                                    Property="Background"
+                                    Value="#fff1cc"/>
+
+                            <Setter TargetName="PathTextBlock"
+                                    Property="Foreground"
+                                    Value="#170d00"/>
+
+                            <Setter TargetName="PlaySoundButton"
+                                    Property="Foreground"
+                                    Value="#170d00"/>
+
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+        </ListBox>
+        
+        <Button x:Name="SoundEffectsFolderButton"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Margin="30,30,30,15"
+                Content="Open Sounds Folder"
+                FontSize="18"
+                Height="40"
+                Width="150"
+                Style="{StaticResource PrimaryButton}"
+                Click="SoundEffectsFolderButton_Click"/>
+
+        <Button x:Name="RefreshButton"
+                Background="Transparent"
+                Foreground="#fff1cc"
+                VerticalAlignment="Bottom"
+                BorderThickness="0"
+                Height="30"
+                Width="30"
+                Margin="20,0,15,20"
+                Style="{StaticResource IconButtonStyle}"
+                Click="RefreshButton_Click">
+            <Image Height="20">
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V489.645 H489.645 V0 H0 Z">
+                                <DrawingGroup Opacity="1">
+                                    <GeometryDrawing Brush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" Geometry="F1 M489.645,489.645z M0,0z M460.656,132.911C401.956,10.811 248.456,-33.589 128.856,28.811 119.456,34.011 115.356,45.411 120.556,55.811 125.756,65.211 137.156,69.311 147.556,64.111 247.456,12.111 374.956,49.211 424.256,150.411 489.656,284.711 405.256,387.111 336.856,425.011 243.756,476.711 125.656,442.411 69.256,354.311L138.556,368.811C148.956,370.911 160.356,364.611 162.456,353.211 164.556,342.811 158.256,331.411 146.856,329.311L24.056,304.311C3.456,302.311,-0.944000000000003,320.911,0.155999999999999,327.211L15.756,451.011C16.756,461.411 25.156,468.711 35.556,468.711 48.356,468.711 56.356,456.211 55.356,444.811L49.356,394.311C106.756,465.111 219.656,525.511 356.756,462.511 414.856,432.511 548.256,314.811 460.656,132.911z" />
+                                </DrawingGroup>
+                            </DrawingGroup>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+            </Image>
+        </Button>
+
+        <Button x:Name="EntranceButton"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="30,30,105,15"
+                Content="Entrance"
+                FontSize="18"
+                Height="40"
+                Width="70"
+                Style="{StaticResource PrimaryButton}"
+                Click="EntranceButton_Click"/>
+
+        <Button x:Name="LoopButton"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="30,30,30,15"
+                Content="Loop"
+                FontSize="18"
+                Height="40"
+                Width="70"
+                Style="{StaticResource PrimaryButton}"
+                Click="LoopButton_Click"/>
+
+    </Grid>
+</Window>

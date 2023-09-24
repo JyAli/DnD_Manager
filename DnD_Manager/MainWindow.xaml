@@ -1,0 +1,43 @@
+﻿<Window x:Class="DnD_Manager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DnD_Manager"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="MainWindow" Height="600" Width="900">
+    <Grid>
+        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill" Source="{StaticResource MainBackgroundImage}" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
+
+        <StackPanel Margin="40" Height="Auto" Width="Auto" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+            <Grid Height="80">
+                <Button x:Name="PlayButton"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="Play"
+                        Style="{StaticResource MainTextButton}"
+                        Click="PlayButton_Click"/>
+            </Grid>
+            
+            <Grid Height="80">
+                <Button x:Name="ScenesButton"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="Scenes"
+                        Style="{StaticResource MainTextButton}"
+                        Click="ScenesButton_Click"/>
+            </Grid>
+
+            <Grid Height="80">
+                <Button x:Name="Exit"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="Exit"
+                        Style="{StaticResource MainTextButton}"
+                        Click="Exit_Click"/>
+            </Grid>
+        </StackPanel>
+        <Frame x:Name="MainPagesFrame" NavigationUIVisibility="Hidden"/>
+    </Grid>
+</Window>
