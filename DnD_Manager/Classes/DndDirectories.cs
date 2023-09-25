@@ -25,5 +25,10 @@ namespace DnD_Manager.Classes
         {
             get { return baseDirectory + "characters"; }
         }
+
+        public static string DataFolder
+        {
+            get { return baseDirectory + "data"; }
+        }
     }
 }

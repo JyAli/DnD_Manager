@@ -1,9 +1,7 @@
 ﻿using DnD_Manager.Classes;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Media;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;

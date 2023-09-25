@@ -1,0 +1,331 @@
+﻿<Page x:Class="DnD_Manager.Pages.ControlsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DnD_Manager.Pages"
+      xmlns:converters="clr-namespace:DnD_Manager.Classes.Converters"
+      mc:Ignorable="d" 
+      d:DesignHeight="1080" d:DesignWidth="1920"
+      Title="ControlsPage">
+
+    <Page.Resources>
+        <converters:PathToFileNameConverter x:Key="PathToFileNameConverter"/>
+    </Page.Resources>
+
+    <Grid>
+        <Image Grid.ColumnSpan="2"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               Stretch="UniformToFill"
+               Source="{StaticResource MainBackgroundImage}"
+               RenderOptions.BitmapScalingMode="HighQuality"
+               RenderOptions.EdgeMode="Aliased"/>
+        <Canvas Background="#88000000" Grid.ColumnSpan="2"/>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Text="Scenes" Style="{StaticResource DefaultTextBlock}" Margin="30,20,0,0" FontSize="40"/>
+            <ListBox x:Name="ScenesListBox"
+                     Background="#88000000"
+                     Margin="30,70,30,30"
+                     Padding="0,10"
+                     BorderBrush="#fff1cc"
+                     SelectionMode="Extended"
+                     SelectionChanged="ScenesListBox_SelectionChanged">
+                
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Margin" Value="10,0"/>
+                        <Setter Property="Padding" Value="0"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <ContentPresenter/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Name="Container" Background="Transparent">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="125" Margin="10">
+                                    <Image.Source>
+                                        <BitmapImage UriSource="{Binding ImagePath}"/>
+                                    </Image.Source>
+                                </Image>
+                                <TextBlock Name="FileNameTextBlock"
+                                           Text="{Binding ImagePath, Converter={StaticResource PathToFileNameConverter}, NotifyOnSourceUpdated=True}"
+                                           Style="{StaticResource DefaultTextBlock}"
+                                           FontSize="22"
+                                           VerticalAlignment="Center"
+                                           TextTrimming="CharacterEllipsis"
+                                           Width="300"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource
+                                             Mode=FindAncestor,
+                                             AncestorType={x:Type ListBoxItem}},
+                                             Path=IsSelected}"
+                                             Value="True">
+
+                                <Setter TargetName="Container"
+                                            Property="Background"
+                                            Value="#fff1cc"/>
+
+                                <Setter TargetName="FileNameTextBlock"
+                                            Property="Foreground"
+                                            Value="#170d00"/>
+
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Characters" Style="{StaticResource DefaultTextBlock}" Margin="30,20,0,0" FontSize="40"/>
+                <ListBox x:Name="CharactersListBox"
+                         Background="#88000000"
+                         Margin="30,70,30,0"
+                         Padding="0,10"
+                         BorderBrush="#fff1cc">
+
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Margin" Value="10,0"/>
+                            <Setter Property="Padding" Value="0"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <EventSetter Event="MouseDoubleClick" Handler="Character_MouseDoubleClick"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                        <ContentPresenter/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Name="Container" Background="Transparent">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="50" Margin="10">
+                                        <Image.Source>
+                                            <BitmapImage UriSource="{Binding}"/>
+                                        </Image.Source>
+                                    </Image>
+                                    <TextBlock Name="CharacterNameTextBlock"
+                                               Text="{Binding Converter={StaticResource PathToFileNameConverter}, NotifyOnSourceUpdated=True}"
+                                               Style="{StaticResource DefaultTextBlock}"
+                                               FontSize="22"
+                                               VerticalAlignment="Center"
+                                               TextTrimming="CharacterEllipsis"
+                                               Width="300"/>
+                                </StackPanel>
+                            </Grid>
+
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource
+                                             Mode=FindAncestor,
+                                             AncestorType={x:Type ListBoxItem}},
+                                             Path=IsSelected}"
+                                             Value="True">
+
+                                    <Setter TargetName="Container"
+                                            Property="Background"
+                                            Value="#fff1cc"/>
+
+                                    <Setter TargetName="CharacterNameTextBlock"
+                                            Property="Foreground"
+                                            Value="#170d00"/>
+
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <Grid Grid.Row="1">
+                    <TextBlock Text="Music" Style="{StaticResource DefaultTextBlock}" Margin="30,20,0,0" FontSize="40"/>
+                    <ListBox x:Name="MusicListBox"
+                             Background="#88000000"
+                             Margin="30,70,30,120"
+                             Padding="0,10"
+                             BorderBrush="#fff1cc">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Margin" Value="10,0"/>
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Background" Value="Transparent"/>
+                                <EventSetter Event="MouseDoubleClick" Handler="Music_MouseDoubleClick"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                            <ContentPresenter/>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Name="Container" Background="Transparent">
+                                    <TextBlock Name="PathTextBlock"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Center"
+                                               Margin="10"
+                                               Text="{Binding Converter={StaticResource PathToFileNameConverter}}"
+                                               Style="{StaticResource DefaultTextBlock}"
+                                               FontSize="22"
+                                               TextTrimming="CharacterEllipsis"
+                                               Width="240"/>
+                                </Grid>
+
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource
+                                                 Mode=FindAncestor,
+                                                 AncestorType={x:Type ListBoxItem}},
+                                                 Path=IsSelected}"
+                                                 Value="True">
+
+                                        <Setter TargetName="Container"
+                                                Property="Background"
+                                                Value="#fff1cc"/>
+
+                                        <Setter TargetName="PathTextBlock"
+                                                Property="Foreground"
+                                                Value="#170d00"/>
+
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <Grid Margin="30,80" VerticalAlignment="Bottom">
+                        <Grid HorizontalAlignment="Left">
+                            <Button x:Name="PlayButton"
+                                    Style="{StaticResource IconButtonStyle}"
+                                    Foreground="#fff1cc"
+                                    Click="PlayButton_Click">
+                                <Image Height="25">
+                                    <Image.Source>
+                                        <DrawingImage>
+                                            <DrawingImage.Drawing>
+                                                <DrawingGroup ClipGeometry="M0,0 V29 H26 V0 H0 Z">
+                                                    <GeometryDrawing Brush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" Geometry="F1 M26,29z M0,0z M24,11.0359C26.6667,12.5755,26.6667,16.4245,24,17.9641L6.75,27.9234C4.08334,29.463,0.75,27.5385,0.75,24.4593L0.75,4.54071C0.75,1.46151,4.08333,-0.462994,6.75,1.07661L24,11.0359z" />
+                                                </DrawingGroup>
+                                            </DrawingImage.Drawing>
+                                        </DrawingImage>
+                                    </Image.Source>
+                                </Image>
+                            </Button>
+
+                            <Button x:Name="PauseButton"
+                                    Style="{StaticResource IconButtonStyle}"
+                                    Foreground="#fff1cc"
+                                    Click="PauseButton_Click"
+                                    Visibility="Hidden">
+                                <Image Height="25">
+                                    <Image.Source>
+                                        <DrawingImage>
+                                            <DrawingImage.Drawing>
+                                                <DrawingGroup ClipGeometry="M0,0 V28 H24 V0 H0 Z">
+                                                    <GeometryDrawing Brush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" Geometry="F1 M24,28z M0,0z M0,3C0,1.34315,1.34315,0,3,0L6,0C7.65685,0,9,1.34315,9,3L9,25C9,26.6569,7.65685,28,6,28L3,28C1.34315,28,0,26.6569,0,25L0,3z" />
+                                                    <GeometryDrawing Brush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" Geometry="F1 M24,28z M0,0z M15,3C15,1.34315,16.3431,0,18,0L21,0C22.6569,0,24,1.34315,24,3L24,25C24,26.6569,22.6569,28,21,28L18,28C16.3431,28,15,26.6569,15,25L15,3z" />
+                                                </DrawingGroup>
+                                            </DrawingImage.Drawing>
+                                        </DrawingImage>
+                                    </Image.Source>
+                                </Image>
+                            </Button>
+                        </Grid>
+
+                        <Slider x:Name="ProgressSlider"
+                                Style="{StaticResource Horizontal_Slider}"
+                                Value="0"
+                                Maximum="100"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Center"
+                                Margin="40,0,40,0"
+                                IsMoveToPointEnabled="True"
+                                Thumb.DragStarted="ControlElement_DragStarted"
+                                Thumb.DragCompleted="ControlElement_DragCompleted"/>
+
+                        <Button x:Name="StopButton"
+                                Style="{StaticResource IconButtonStyle}"
+                                HorizontalAlignment="Right"
+                                Foreground="#fff1cc"
+                                Click="StopButton_Click">
+                            <Image Height="20">
+                                <Image.Source>
+                                    <DrawingImage>
+                                        <DrawingImage.Drawing>
+                                            <DrawingGroup ClipGeometry="M0,0 V26 H26 V0 H0 Z">
+                                                <GeometryDrawing Brush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}">
+                                                    <GeometryDrawing.Geometry>
+                                                        <RectangleGeometry RadiusX="5" RadiusY="5" Rect="0.39,0.2762,25,25" />
+                                                    </GeometryDrawing.Geometry>
+                                                </GeometryDrawing>
+                                            </DrawingGroup>
+                                        </DrawingImage.Drawing>
+                                    </DrawingImage>
+                                </Image.Source>
+                            </Image>
+                        </Button>
+                    </Grid>
+                    <Button x:Name="EndSessionButton"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Content="End Session"
+                            Margin="30,20"
+                            FontSize="18"
+                            Height="40"
+                            Width="121"
+                            Style="{StaticResource PrimaryButton}"
+                            Click="EndSessionButton_Click"/>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

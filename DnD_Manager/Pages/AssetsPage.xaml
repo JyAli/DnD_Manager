@@ -280,8 +280,6 @@
                                                TextTrimming="CharacterEllipsis"
                                                Width="300"/>
                                 </StackPanel>
-
-
                             </Grid>
 
                             <DataTemplate.Triggers>
@@ -303,7 +301,6 @@
                             </DataTemplate.Triggers>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
-
                 </ListBox>
 
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="30">

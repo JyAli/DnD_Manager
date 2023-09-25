@@ -34,10 +34,10 @@ namespace DnD_Manager.Pages
             };
 
             MusicListBox.ItemsSource = Global.Music;
-            UpdateMusicListBox();
+            MusicListBox.Items.Refresh();
 
             CharactersListBox.ItemsSource= Global.Characters;
-            UpdateCharactersListBox();
+            CharactersListBox.Items.Refresh();
 
             TimeSyncTimer = new Timer(_ => {
                 if (!IsSliderBeingDragged)

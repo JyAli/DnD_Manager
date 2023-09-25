@@ -22,7 +22,7 @@ namespace DnD_Manager.Pages
         private void Setup()
         {
             ScenesListBox.ItemsSource = Global.Scenes;
-            UpdateScenesListBox();
+            ScenesListBox.Items.Refresh();
         }
 
         private void UpdateScenesListBox()
@@ -55,7 +55,7 @@ namespace DnD_Manager.Pages
         {
             Button soundsButton = (Button)sender;
             Scene clickedScene = (Scene)soundsButton.CommandParameter;
-            new SoundsWindow(clickedScene).Show();
+            new SoundsWindow(clickedScene).ShowDialog();
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)

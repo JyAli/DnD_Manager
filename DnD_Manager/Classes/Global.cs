@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Dynamic;
+using System.Linq;
 
 namespace DnD_Manager.Classes
 {
@@ -9,7 +11,7 @@ namespace DnD_Manager.Classes
         {
             get
             {
-                if (_Scenes is null) _Scenes = new List<Scene>();
+                _Scenes ??= FilesHandler.ReadScenes();
                 return _Scenes;
             }
         }
@@ -22,7 +24,7 @@ namespace DnD_Manager.Classes
         {
             get
             {
-                if (_Sounds is null) _Sounds = new List<string>();
+                _Sounds ??= FilesHandler.GetAudioFilesInFolder(DndDirectories.SoundsFolder).ToList();
                 return _Sounds;
             }
         }
@@ -35,7 +37,7 @@ namespace DnD_Manager.Classes
         {
             get
             {
-                if (_Music is null) _Music = new List<string>();
+                _Music ??= FilesHandler.GetAudioFilesInFolder(DndDirectories.MusicFolder).ToList();
                 return _Music;
             }
         }
@@ -48,7 +50,7 @@ namespace DnD_Manager.Classes
         {
             get
             {
-                if (_Characters is null) _Characters = new List<string>();
+                _Characters ??= FilesHandler.GetImagesInFolder(DndDirectories.CharactersFolder).ToList();
                 return _Characters;
             }
         }

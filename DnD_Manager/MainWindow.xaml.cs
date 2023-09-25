@@ -1,21 +1,10 @@
 ﻿using DnD_Manager.Classes;
 using DnD_Manager.Pages;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace DnD_Manager
 {
@@ -24,6 +13,7 @@ namespace DnD_Manager
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
@@ -32,7 +22,18 @@ namespace DnD_Manager
 
         private void Setup()
         {
+            Closing += delegate { FilesHandler.Save(); };
             CreateNecessaryFilesAndDirectories();
+
+            //The timer that is responable for saving every 10 seconds
+            Timer saveTimer = new Timer()
+            {
+                Interval = 10000,
+                AutoReset = true,
+                Enabled = true,
+            };
+            saveTimer.Elapsed += delegate { FilesHandler.Save(); };
+            saveTimer.Start();
         }
 
         public static void CreateNecessaryFilesAndDirectories()
@@ -41,11 +42,12 @@ namespace DnD_Manager
             Directory.CreateDirectory(DndDirectories.SoundsFolder);
             Directory.CreateDirectory(DndDirectories.MusicFolder);
             Directory.CreateDirectory(DndDirectories.CharactersFolder);
+            Directory.CreateDirectory(DndDirectories.DataFolder);
         }
 
         private void PlayButton_Click(object sender, RoutedEventArgs e)
         {
-
+            MainPagesFrame.Content = new ControlsPage();
         }
 
         private void ScenesButton_Click(object sender, RoutedEventArgs e)

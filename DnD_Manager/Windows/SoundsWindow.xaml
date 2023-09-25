@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:DnD_Manager.Windows"
         xmlns:converters="clr-namespace:DnD_Manager.Classes.Converters"
         mc:Ignorable="d"
-        Title="SoundsWindow" Height="600" Width="400"
+        Title="Sound Effects" Height="600" Width="400"
         Background="#170d00"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize">

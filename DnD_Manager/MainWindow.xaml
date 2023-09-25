@@ -6,8 +6,9 @@
         xmlns:local="clr-namespace:DnD_Manager"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="MainWindow" Height="600" Width="900">
-    <Grid>
+        Title="Dungeons &amp; Dragons Manager" Height="600" Width="900"
+        Background="#170d00">
+    <Grid x:Name="MainGrid">
         <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill" Source="{StaticResource MainBackgroundImage}" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
 
         <StackPanel Margin="40" Height="Auto" Width="Auto" VerticalAlignment="Bottom" HorizontalAlignment="Left">
@@ -19,7 +20,7 @@
                         Style="{StaticResource MainTextButton}"
                         Click="PlayButton_Click"/>
             </Grid>
-            
+
             <Grid Height="80">
                 <Button x:Name="ScenesButton"
                         HorizontalAlignment="Left"
@@ -47,6 +48,7 @@
                         Click="Exit_Click"/>
             </Grid>
         </StackPanel>
+
         <Frame x:Name="MainPagesFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>
