@@ -13,11 +13,14 @@ namespace DnD_Manager.Classes
         public double Left { get; set; }
         public double Top { get; set; }
 
+        public double Scale { get; set; }
+
         public Character(string imagePath)
         {
             ImagePath = imagePath;
             Left = 0;
             Top = 0;
+            Scale = 1;
         }
     }
 }

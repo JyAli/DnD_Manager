@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.IO;
+using System.Linq;
 using System.Numerics;
 using System.Windows;
 using System.Windows.Controls;
@@ -122,13 +123,31 @@ namespace DnD_Manager.Windows
             image.EndInit();
 
             Image characterImage = new Image();
-            characterImage.Width = 150;
+            characterImage.Width = 150 * character.Scale;
             characterImage.Margin = new Thickness(character.Left, character.Top, 0, 0);
             characterImage.Source = image;
             characterImage.Tag = character;
             RenderOptions.SetBitmapScalingMode(characterImage, BitmapScalingMode.HighQuality);
 
             CharactersCanvas.Children.Add(characterImage);
+        }
+
+        public Character? GetCharacter(string imagePath)
+        {
+            Image? image = CharactersCanvas.Children.OfType<Image>().FirstOrDefault(x => ((Character)x.Tag).ImagePath.Equals(imagePath));
+            return image is not null ? (Character)image.Tag : null;
+        }
+        
+        public void UpdateCharacterScale(Character character)
+        {
+            foreach (Image image in CharactersCanvas.Children)
+            {
+                if(image.Tag == character)
+                {
+                    image.Width = 150 * character.Scale;
+                    break;
+                }
+            }
         }
 
         public void removeCharacter(string imagePath)

@@ -42,7 +42,7 @@ namespace DnD_Manager.Classes
         public Scene(string imagePath)
         {
             ImagePath = imagePath;
-            DisplayState = Stretch.UniformToFill;
+            DisplayState = Stretch.Uniform;
             Characters = new List<Character>();
         }
 

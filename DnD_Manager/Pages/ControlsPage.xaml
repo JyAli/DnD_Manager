@@ -100,13 +100,19 @@
                 </ListBox.ItemTemplate>
             </ListBox>
 
+            <TextBlock Style="{StaticResource DefaultTextBlock}"
+                       Text="Scene Display Mode:"
+                       FontSize="30"
+                       VerticalAlignment="Bottom"
+                       Margin="30,62"/>
+
             <ComboBox x:Name="DisplayStateComboBox"
                       Style="{StaticResource ComboBoxStyle}"
                       Height="40"
                       Width="180"
                       HorizontalAlignment="Left"
                       VerticalAlignment="Bottom"
-                      Margin="30,60"
+                      Margin="240,60"
                       Background="#88000000"
                       BorderBrush="#fff1cc"
                       BorderThickness="2"
@@ -125,9 +131,10 @@
                 <TextBlock Text="Characters" Style="{StaticResource DefaultTextBlock}" Margin="30,20,0,0" FontSize="40"/>
                 <ListBox x:Name="CharactersListBox"
                          Background="#88000000"
-                         Margin="30,70,30,0"
+                         Margin="30,70,30,70"
                          Padding="0,10"
-                         BorderBrush="#fff1cc">
+                         BorderBrush="#fff1cc"
+                         SelectionChanged="CharactersListBox_SelectionChanged">
 
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -191,6 +198,31 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
+
+
+                <TextBlock Style="{StaticResource DefaultTextBlock}"
+                           Text="Character Size:"
+                           FontSize="30"
+                           Margin="40,20"
+                           VerticalAlignment="Bottom"/>
+                
+                <Slider x:Name="SizeSlider"
+                        Style="{StaticResource Horizontal_Slider}"
+                        IsEnabled="False"
+                        Value="1"
+                        Maximum="2"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Bottom"
+                        Margin="220,0,100,20"
+                        IsMoveToPointEnabled="True"
+                        ValueChanged="SizeSlider_ValueChanged"/>
+
+                <TextBlock Style="{StaticResource DefaultTextBlock}"
+                           Text="{Binding ElementName=SizeSlider, Path=Value, StringFormat=N2}"
+                           FontSize="30"
+                           Margin="40,20"
+                           VerticalAlignment="Bottom"
+                           HorizontalAlignment="Right"/>
 
                 <Grid Grid.Row="1">
                     <TextBlock Text="Music" Style="{StaticResource DefaultTextBlock}" Margin="30,20,0,0" FontSize="40"/>

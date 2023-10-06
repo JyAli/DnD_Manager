@@ -86,6 +86,7 @@ namespace DnD_Manager.Pages
             }
 
             PlayArea.UpdateDisplayedImages(ScenesListBox.SelectedItems);
+            UpdateSizeSlider();
         }
 
         private void Music_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -161,6 +162,8 @@ namespace DnD_Manager.Pages
                 selectedScene.Characters.Add(character);
                 PlayArea.AddCharacter(character);
             }
+
+            UpdateSizeSlider();
         }
 
         private void DisplayStateComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -177,6 +180,35 @@ namespace DnD_Manager.Pages
 
             ((Scene)ScenesListBox.SelectedItems[0]).DisplayState = state;
             PlayArea.UpdateDisplayedImages(ScenesListBox.SelectedItems);
+        }
+
+        private void CharactersListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateSizeSlider();
+        }
+
+        private void UpdateSizeSlider()
+        {
+            if (CharactersListBox.SelectedItems.Count != 1) return;
+
+            string imagePath = (string)CharactersListBox.SelectedItem;
+            Character character = PlayArea.GetCharacter(imagePath);
+            SizeSlider.IsEnabled = character is not null;
+
+            if (character is not null) SizeSlider.Value = character.Scale;
+            else SizeSlider.Value = 1;
+        }
+
+        private void SizeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (CharactersListBox.SelectedItems.Count != 1) return;
+            Character character = PlayArea.GetCharacter((string)CharactersListBox.SelectedItem);
+
+            if(character is not null)
+            {
+                character.Scale = e.NewValue;
+                PlayArea.UpdateCharacterScale(character);
+            }
         }
     }
 }
