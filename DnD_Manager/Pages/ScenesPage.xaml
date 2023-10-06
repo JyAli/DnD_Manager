@@ -91,7 +91,7 @@
                                 <StackPanel Orientation="Horizontal">
                                     <Image Width="125" Margin="10">
                                         <Image.Source>
-                                            <BitmapImage UriSource="{Binding ImagePath}"/>
+                                            <BitmapImage UriSource="{Binding ImagePath}" CreateOptions="IgnoreColorProfile"/>
                                         </Image.Source>
                                     </Image>
                                     <StackPanel Margin="10">
@@ -239,14 +239,14 @@
             </Grid>
         </Grid>
 
-        <Image Grid.Column="1"
-               Source="{Binding ElementName=ScenesListBox, Path=SelectedItem.ImagePath, FallbackValue=Null}"
+        <Image x:Name="DisplayedImage"
+               Grid.Column="1"
                Margin="20"
                HorizontalAlignment="Center"
                VerticalAlignment="Center"
                Stretch="Uniform"
                RenderOptions.BitmapScalingMode="HighQuality"
                RenderOptions.EdgeMode="Aliased"/>
-
+        
     </Grid>
 </Page>

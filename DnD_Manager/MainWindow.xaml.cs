@@ -1,5 +1,6 @@
 ﻿using DnD_Manager.Classes;
 using DnD_Manager.Pages;
+using System;
 using System.IO;
 using System.Timers;
 using System.Windows;
@@ -22,6 +23,7 @@ namespace DnD_Manager
 
         private void Setup()
         {
+            FilesHandler.ValidateFiles();
             Closing += delegate { FilesHandler.Save(); };
             CreateNecessaryFilesAndDirectories();
 
@@ -67,6 +69,16 @@ namespace DnD_Manager
 
         public void ClearMainPagesFrame()
         {
+            if (MainPagesFrame.Content.GetType() == typeof(ControlsPage))
+            {
+                try
+                {
+                    ControlsPage page = (ControlsPage)MainPagesFrame.Content;
+                    page.MusicPlayer?.Stop();
+                    page.MusicPlayer?.Close();
+                } catch (Exception) { }
+                
+            }
             MainPagesFrame.Content = null;
         }
     }

@@ -239,7 +239,8 @@
                          Background="#88000000"
                          Margin="30,90,30,120"
                          Padding="0,10"
-                         BorderBrush="#fff1cc">
+                         BorderBrush="#fff1cc"
+                         SelectionChanged="CharactersListBox_SelectionChanged">
 
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -269,7 +270,7 @@
                                 <StackPanel Orientation="Horizontal">
                                     <Image Width="50" Margin="10">
                                         <Image.Source>
-                                            <BitmapImage UriSource="{Binding}"/>
+                                            <BitmapImage UriSource="{Binding}" CreateOptions="IgnoreColorProfile"/>
                                         </Image.Source>
                                     </Image>
                                     <TextBlock Name="CharacterNameTextBlock"
@@ -339,8 +340,8 @@
                 </StackPanel>
             </Grid>
 
-            <Image Grid.Column="2"
-                   Source="{Binding ElementName=CharactersListBox, Path=SelectedItem, FallbackValue=Null}"
+            <Image x:Name="DisplayedCharacter"
+                   Grid.Column="2"
                    Margin="20"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"

@@ -32,7 +32,7 @@
             <TextBlock Text="Scenes" Style="{StaticResource DefaultTextBlock}" Margin="30,20,0,0" FontSize="40"/>
             <ListBox x:Name="ScenesListBox"
                      Background="#88000000"
-                     Margin="30,70,30,30"
+                     Margin="30,70,30,120"
                      Padding="0,10"
                      BorderBrush="#fff1cc"
                      SelectionMode="Extended"
@@ -66,7 +66,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="125" Margin="10">
                                     <Image.Source>
-                                        <BitmapImage UriSource="{Binding ImagePath}"/>
+                                        <BitmapImage UriSource="{Binding ImagePath}" CreateOptions="IgnoreColorProfile"/>
                                     </Image.Source>
                                 </Image>
                                 <TextBlock Name="FileNameTextBlock"
@@ -99,6 +99,22 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+
+            <ComboBox x:Name="DisplayStateComboBox"
+                      Style="{StaticResource ComboBoxStyle}"
+                      Height="40"
+                      Width="180"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Bottom"
+                      Margin="30,60"
+                      Background="#88000000"
+                      BorderBrush="#fff1cc"
+                      BorderThickness="2"
+                      SelectionChanged="DisplayStateComboBox_SelectionChanged">
+                <TextBlock Text="Uniform" Style="{StaticResource DefaultTextBlock}"/>
+                <TextBlock Text="Uniform To Fill" Style="{StaticResource DefaultTextBlock}"/>
+                <TextBlock Text="Fill" Style="{StaticResource DefaultTextBlock}"/>
+            </ComboBox>
 
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
@@ -142,7 +158,7 @@
                                 <StackPanel Orientation="Horizontal">
                                     <Image Width="50" Margin="10">
                                         <Image.Source>
-                                            <BitmapImage UriSource="{Binding}"/>
+                                            <BitmapImage UriSource="{Binding}" CreateOptions="IgnoreColorProfile"/>
                                         </Image.Source>
                                     </Image>
                                     <TextBlock Name="CharacterNameTextBlock"

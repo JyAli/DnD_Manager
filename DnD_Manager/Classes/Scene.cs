@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using JsonConstructorAttribute = Newtonsoft.Json.JsonConstructorAttribute;
-using JsonIgnoreAttribute = Newtonsoft.Json.JsonIgnoreAttribute;
+using System.Windows.Media;
 
 namespace DnD_Manager.Classes
 {
@@ -28,6 +27,11 @@ namespace DnD_Manager.Classes
 
 
 
+        public Stretch DisplayState { get; set; }
+
+
+
+
         public List<Character> Characters { get; private set; }
 
 
@@ -38,6 +42,7 @@ namespace DnD_Manager.Classes
         public Scene(string imagePath)
         {
             ImagePath = imagePath;
+            DisplayState = Stretch.UniformToFill;
             Characters = new List<Character>();
         }
 

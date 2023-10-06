@@ -17,7 +17,7 @@ namespace DnD_Manager.Pages
     public partial class ControlsPage : Page
     {
         private PlayAreaWindow PlayArea;
-        private MediaPlayer MusicPlayer;
+        public MediaPlayer MusicPlayer;
         private Timer TimeSyncTimer;
         private bool IsSliderBeingDragged = false;
         public ControlsPage()
@@ -65,10 +65,30 @@ namespace DnD_Manager.Pages
 
         private void ScenesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            DisplayStateComboBox.IsEnabled = ScenesListBox.SelectedItems.Count == 1;
+
+            if (ScenesListBox.SelectedItems.Count == 1)
+            {
+                switch (((Scene)ScenesListBox.SelectedItems[0]).DisplayState)
+                {
+                    case Stretch.Uniform:
+                        DisplayStateComboBox.SelectedIndex = 0;
+                        break;
+
+                    case Stretch.UniformToFill:
+                        DisplayStateComboBox.SelectedIndex = 1;
+                        break;
+
+                    case Stretch.Fill:
+                        DisplayStateComboBox.SelectedIndex = 2;
+                        break;
+                }
+            }
+
             PlayArea.UpdateDisplayedImages(ScenesListBox.SelectedItems);
         }
 
-        private void Music_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void Music_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (MusicListBox.SelectedItem is null) return;
             string clickedMusic = (string)MusicListBox.SelectedItem;
@@ -126,7 +146,7 @@ namespace DnD_Manager.Pages
 
         private void Character_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (CharactersListBox.SelectedItem is null || ScenesListBox.SelectedItems.Count == 0 || PlayArea.CharactersCanvas.Children.Count != 1) return;
+            if (CharactersListBox.SelectedItem is null || ScenesListBox.SelectedItems.Count == 0 || PlayArea.DisplayedImagesPanel.Children.Count != 1) return;
             string clickedCharacteImagePath = (string)CharactersListBox.SelectedItem;
             Scene selectedScene = (Scene)ScenesListBox.SelectedItems[0];
 
@@ -141,6 +161,22 @@ namespace DnD_Manager.Pages
                 selectedScene.Characters.Add(character);
                 PlayArea.AddCharacter(character);
             }
+        }
+
+        private void DisplayStateComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(ScenesListBox.SelectedItems.Count != 1) return;
+
+            Stretch state = Stretch.None;
+            switch (DisplayStateComboBox.SelectedIndex)
+            {
+                case 0: state = Stretch.Uniform; break;
+                case 1: state = Stretch.UniformToFill; break;
+                case 2: state = Stretch.Fill; break;
+            }
+
+            ((Scene)ScenesListBox.SelectedItems[0]).DisplayState = state;
+            PlayArea.UpdateDisplayedImages(ScenesListBox.SelectedItems);
         }
     }
 }

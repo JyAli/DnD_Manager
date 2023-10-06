@@ -12,6 +12,7 @@ namespace DnD_Manager.Classes
             get
             {
                 _Scenes ??= FilesHandler.ReadScenes();
+                _Scenes ??= new List<Scene>();
                 return _Scenes;
             }
         }
@@ -25,6 +26,7 @@ namespace DnD_Manager.Classes
             get
             {
                 _Sounds ??= FilesHandler.GetAudioFilesInFolder(DndDirectories.SoundsFolder).ToList();
+                _Sounds ??= new List<string>();
                 return _Sounds;
             }
         }
@@ -38,6 +40,7 @@ namespace DnD_Manager.Classes
             get
             {
                 _Music ??= FilesHandler.GetAudioFilesInFolder(DndDirectories.MusicFolder).ToList();
+                _Music ??= new List<string>();
                 return _Music;
             }
         }

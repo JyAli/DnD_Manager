@@ -1,18 +1,15 @@
-﻿using Microsoft.Win32;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows.Documents;
-using System.Xml;
 using Formatting = Newtonsoft.Json.Formatting;
 
 namespace DnD_Manager.Classes
 {
     public class FilesHandler
     {
-        public static readonly string[] ImageExtensions = { ".JPG", ".JPEG", ".JPE", ".BMP", ".GIF", ".PNG" };
+        public static readonly string[] ImageExtensions = { ".JPG", ".JPEG", ".JPE", ".BMP", ".GIF", ".PNG", ".WEBP" };
         public static readonly string[] AudioExtensions = { ".MP3", ".WAV", ".AAC" };
         public static bool IsImage(string filePath)
         {
@@ -67,6 +64,11 @@ namespace DnD_Manager.Classes
         public static void Save()
         {
             SaveScenes();
+        }
+
+        public static void ValidateFiles()
+        {
+            Global.Scenes.RemoveAll(x => !File.Exists(x.ImagePath));
         }
     }
 }

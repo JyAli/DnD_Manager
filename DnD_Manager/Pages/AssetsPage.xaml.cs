@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
 namespace DnD_Manager.Pages
@@ -141,6 +142,18 @@ namespace DnD_Manager.Pages
         {
             Player.Position = TimeSpan.FromMilliseconds(ProgressSlider.Value);
             IsSliderBeingDragged = false;
+        }
+
+        private void CharactersListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Uri ImageUri = new Uri((string)CharactersListBox.SelectedItem);
+            BitmapImage image = new BitmapImage();
+            image.BeginInit();
+            image.CreateOptions = BitmapCreateOptions.IgnoreColorProfile;
+            image.UriSource = ImageUri;
+            image.EndInit();
+
+            DisplayedCharacter.Source = image;
         }
     }
 }

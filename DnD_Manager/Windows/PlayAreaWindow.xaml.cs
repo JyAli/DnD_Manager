@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.IO;
+using System.Numerics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -32,6 +33,7 @@ namespace DnD_Manager.Windows
         private void Setup()
         {
             Closed += delegate { try { ((MainWindow)Application.Current.MainWindow).ClearMainPagesFrame(); } catch { } };
+            Closing += delegate { EntrancePlayer?.Stop(); LoopPlayer?.Stop(); EntrancePlayer?.Close(); LoopPlayer?.Close(); };
             EntrancePlayer = new MediaPlayer();
             LoopPlayer = new MediaPlayer();
         }
@@ -43,11 +45,18 @@ namespace DnD_Manager.Windows
             DisplayedImagesPanel.Children.Clear();
             CharactersCanvas.Children.Clear();
             foreach (Scene scene in selectedItems)
-            {
+            { 
+                BitmapImage image = new BitmapImage();
+                image.BeginInit();
+                image.CreateOptions = BitmapCreateOptions.IgnoreColorProfile;
+                image.UriSource = new Uri(scene.ImagePath); ;
+                image.EndInit();
+
                 Image newImage = new Image() {
                     HorizontalAlignment = HorizontalAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center,
-                    Source = new BitmapImage(new Uri(scene.ImagePath))
+                    Stretch = scene.DisplayState,
+                    Source = image
                 };
                 RenderOptions.SetBitmapScalingMode(newImage, BitmapScalingMode.HighQuality);
                 DisplayedImagesPanel.Children.Add(newImage);
@@ -59,7 +68,7 @@ namespace DnD_Manager.Windows
             {
                 foreach (Character caracter in ((Scene)selectedItems[0]).Characters)
                 {
-                    AddCharacter(caracter);
+                     AddCharacter(caracter);
                 }
             }
         }
@@ -106,10 +115,16 @@ namespace DnD_Manager.Windows
 
         public void AddCharacter(Character character)
         {
+            BitmapImage image = new BitmapImage();
+            image.BeginInit();
+            image.CreateOptions = BitmapCreateOptions.IgnoreColorProfile;
+            image.UriSource = new Uri(character.ImagePath); ;
+            image.EndInit();
+
             Image characterImage = new Image();
             characterImage.Width = 150;
             characterImage.Margin = new Thickness(character.Left, character.Top, 0, 0);
-            characterImage.Source = new BitmapImage(new Uri(character.ImagePath));
+            characterImage.Source = image;
             characterImage.Tag = character;
             RenderOptions.SetBitmapScalingMode(characterImage, BitmapScalingMode.HighQuality);
 

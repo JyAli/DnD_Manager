@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace DnD_Manager.Pages
 {
@@ -29,10 +31,7 @@ namespace DnD_Manager.Pages
         {
             string[] imagesPaths = FilesHandler.GetImagesInFolder(DndDirectories.ScenesFolder);
             Global.Scenes.Clear();
-            foreach (string imagePath in imagesPaths)
-            {
-                Global.Scenes.Add(new Scene(imagePath));
-            }
+            foreach (string imagePath in imagesPaths) Global.Scenes.Add(new Scene(imagePath));
             ScenesListBox.Items.Refresh();
         }
 
@@ -48,7 +47,14 @@ namespace DnD_Manager.Pages
 
         private void ScenesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            Uri ImageUri = new Uri(((Scene)ScenesListBox.SelectedItem).ImagePath);
+            BitmapImage image = new BitmapImage();
+            image.BeginInit();
+            image.CreateOptions = BitmapCreateOptions.IgnoreColorProfile;
+            image.UriSource = ImageUri;
+            image.EndInit();
             
+            DisplayedImage.Source = image;
         }
 
         private void SoundsButton_Click(object sender, RoutedEventArgs e)

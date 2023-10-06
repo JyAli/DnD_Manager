@@ -24,6 +24,7 @@ namespace DnD_Manager.Windows
 
         private void Setup()
         {
+            Closing += delegate { Player?.Stop(); Player?.Close(); };
             Player = new MediaPlayer();
             SoundsListBox.ItemsSource = Global.Sounds;
             string entranceText = Scene.EntranceSoundPath is not null ? Path.GetFileNameWithoutExtension(Scene.EntranceSoundPath) : string.Empty;
