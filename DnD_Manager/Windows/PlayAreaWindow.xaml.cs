@@ -150,7 +150,7 @@ namespace DnD_Manager.Windows
             }
         }
 
-        public void removeCharacter(string imagePath)
+        public void RemoveCharacter(string imagePath)
         {
             Image selectedImage = null;
             foreach (Image character in CharactersCanvas.Children)

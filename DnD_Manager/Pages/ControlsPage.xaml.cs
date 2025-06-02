@@ -47,6 +47,12 @@ namespace DnD_Manager.Pages
                 ProgressSlider.Value = MusicPlayer.Position.TotalMilliseconds;
             };
 
+            MusicPlayer.MediaEnded += delegate
+            {
+                MusicPlayer.Position = TimeSpan.Zero;
+                MusicPlayer.Play();
+            };
+
             TimeSyncTimer = new Timer(_ => {
                 if (!IsSliderBeingDragged)
                 {
@@ -154,7 +160,7 @@ namespace DnD_Manager.Pages
             if(selectedScene.Characters.Any(x => x.ImagePath == clickedCharacteImagePath))
             {
                 selectedScene.Characters.RemoveAt(selectedScene.Characters.FindIndex(x => x.ImagePath == clickedCharacteImagePath));
-                PlayArea.removeCharacter(clickedCharacteImagePath);
+                PlayArea.RemoveCharacter(clickedCharacteImagePath);
             }
             else
             {
